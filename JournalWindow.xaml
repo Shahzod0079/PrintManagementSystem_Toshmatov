@@ -8,7 +8,6 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <!-- Стиль для TabItem чтобы все табы были одного стиля -->
         <Style TargetType="TabItem">
             <Setter Property="Background" Value="#FFDDDDDD"/>
             <Setter Property="BorderBrush" Value="Gray"/>
@@ -20,16 +19,13 @@
     </Window.Resources>
 
     <Grid>
-        <!-- Верхняя панель с меню -->
         <DockPanel>
-            <!-- Меню -->
             <Menu DockPanel.Dock="Top" Background="#FF2B579A">
                 <MenuItem Header="Главная" Foreground="White" FontWeight="Bold"/>
                 <MenuItem Header="Функции" Foreground="White" FontWeight="Bold"/>
                 <MenuItem Header="Операции" Foreground="White" FontWeight="Bold"/>
             </Menu>
 
-            <!-- Заголовок - желтый -->
             <Border DockPanel.Dock="Top" Background="#FFFFC500" Height="60">
                 <Label Content="Журнал" 
                        FontSize="28" 
@@ -38,16 +34,13 @@
                        VerticalAlignment="Center"/>
             </Border>
 
-            <!-- Основное содержимое -->
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
-                <!-- Левая часть - Табы и таблица -->
                 <Grid Grid.Column="0">
-                    <!-- Табы для периодов -->
                     <TabControl x:Name="periodTabControl" Margin="10,10,10,0">
                         <TabItem Header="Сегодня">
                             <ListView x:Name="todayListView">
@@ -64,7 +57,6 @@
                                     </GridView>
                                 </ListView.View>
 
-                                <!-- Желтые заголовки колонок -->
                                 <ListView.Resources>
                                     <Style TargetType="GridViewColumnHeader">
                                         <Setter Property="Background" Value="#FFFFC500"/>
@@ -223,10 +215,7 @@
                         <Button x:Name="deleteButton" Content="Удалить" 
                                 Height="35" Margin="0,5" Click="DeleteButton_Click"/>
 
-                        <Separator Margin="0,20,0,10"/>
 
-                        <Button x:Name="backButton" Content="Назад" 
-                                Height="35" Margin="0,5" Click="BackButton_Click"/>
                     </StackPanel>
                 </Border>
             </Grid>

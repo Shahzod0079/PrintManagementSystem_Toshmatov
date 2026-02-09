@@ -163,9 +163,9 @@ namespace Print_Management_System
 
         // 5. Изменение количества
         private void textBoxCount_TextChanged(object sender, TextChangedEventArgs e) =>
-        
+
             CostCalculations();
-        
+
 
         // 6. Проверка ввода (только цифры)
         private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -184,7 +184,9 @@ namespace Print_Management_System
         // 7. Добавление операции
         private void AddOperation(object sender, RoutedEventArgs e)
         {
+
             TypeOperationsWindow newTOW = new TypeOperationsWindow();
+
             newTOW.typeOperationText = typeOperation.SelectedItem as String;
             newTOW.typeOperation = typeOperationList.Find(x => x.name == newTOW.typeOperationText).id;
 
@@ -201,21 +203,14 @@ namespace Print_Management_System
                 else
                     newTOW.side = 2;
             }
-
             if (Colors.IsChecked == false)
             {
                 newTOW.colorText = "Ч/Б";
                 newTOW.color = false;
             }
-
-            if (LotOfColor.IsChecked == true)
-            {
-                newTOW.colorText += "(> 50%)";
-                newTOW.occupancy = true;
-            }
             else
             {
-                newTOW.colorText += "ЦВ";
+                newTOW.colorText = "ЦВ";
                 newTOW.color = true;
             }
 
@@ -230,7 +225,15 @@ namespace Print_Management_System
             addOperationButton.Content = "Добавить";
             Operations.Items.Add(newTOW);
             CalculationsAllPrice();
+
+
+            if (journalWindow != null)
+            {
+                string user = users.SelectedItem?.ToString() ?? usersName.Text;
+                journalWindow.AddRecordFromMainWindow(newTOW, user);
+            }
         }
+
 
         // 8. Изменение параметров цвета/сторон
         private void ColorsChange(object sender, RoutedEventArgs e) =>
@@ -345,7 +348,7 @@ namespace Print_Management_System
                 textBoxPrice.Text = (float.Parse(textBoxCount.Text) * price).ToString();
         }
 
-    public void CalculationsAllPrice()
+        public void CalculationsAllPrice()
         {
             float allPrice = 0;
 
@@ -356,5 +359,82 @@ namespace Print_Management_System
             }
             labelAllPrice.Content = "Общая сумма: " + allPrice;
         }
+
+        private JournalWindow journalWindow;
+
+        private void JournalButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (journalWindow == null || !journalWindow.IsVisible)
+            {
+                journalWindow = new JournalWindow(this);
+                journalWindow.Closed += (s, args) => journalWindow = null;
+            }
+
+            foreach (TypeOperationsWindow operation in Operations.Items)
+            {
+                string user = users.SelectedItem?.ToString() ?? usersName.Text;
+                journalWindow.AddRecordFromMainWindow(operation, user);
+            }
+
+            this.Hide();
+            journalWindow.Show();
+        }
+
+        public void LoadRecordForEditing(JournalRecord record)
+        {
+
+            usersName.Text = record.User;
+
+            typeOperation.SelectedItem = record.OperationType;
+
+            formats.SelectedItem = record.Format;
+
+            if (record.Side == 1)
+                TwoSides.IsChecked = false;
+            else if (record.Side == 2)
+                TwoSides.IsChecked = true;
+
+            if (record.Color == "Ч/Б" || record.Color.Contains("Ч/Б"))
+                Colors.IsChecked = false;
+            else
+                Colors.IsChecked = true;
+
+            if (record.Color.Contains("> 50%") || record.Color.Contains("(> 50%)"))
+                LotOfColor.IsChecked = true;
+            else
+                LotOfColor.IsChecked = false;
+
+            textBoxCount.Text = record.Count.ToString();
+
+            textBoxPrice.Text = record.Price.ToString();
+
+            addOperationButton.Content = "Изменить";
+        }
+
+
+        private void AddAllToJournal_Click(object sender, RoutedEventArgs e)
+        {
+            if (Operations.Items.Count == 0)
+            {
+                MessageBox.Show("Нет операций для добавления в журнал!");
+                return;
+            }
+
+            if (journalWindow != null)
+            {
+
+                foreach (TypeOperationsWindow operation in Operations.Items)
+                {
+                    string user = users.SelectedItem?.ToString() ?? usersName.Text;
+                    journalWindow.AddRecordFromMainWindow(operation, user);
+                }
+                MessageBox.Show($"Добавлено {Operations.Items.Count} операций в журнал!");
+            }
+            else
+            {
+                MessageBox.Show("Сначала откройте журнал!");
+            }
+        }
     }
 }
+
