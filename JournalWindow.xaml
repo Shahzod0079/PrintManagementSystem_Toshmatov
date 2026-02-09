@@ -1,0 +1,235 @@
+﻿<Window x:Class="Print_Management_System.JournalWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Журнал операций" Height="600" Width="900" 
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <!-- Стиль для TabItem чтобы все табы были одного стиля -->
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="#FFDDDDDD"/>
+            <Setter Property="BorderBrush" Value="Gray"/>
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <!-- Верхняя панель с меню -->
+        <DockPanel>
+            <!-- Меню -->
+            <Menu DockPanel.Dock="Top" Background="#FF2B579A">
+                <MenuItem Header="Главная" Foreground="White" FontWeight="Bold"/>
+                <MenuItem Header="Функции" Foreground="White" FontWeight="Bold"/>
+                <MenuItem Header="Операции" Foreground="White" FontWeight="Bold"/>
+            </Menu>
+
+            <!-- Заголовок - желтый -->
+            <Border DockPanel.Dock="Top" Background="#FFFFC500" Height="60">
+                <Label Content="Журнал" 
+                       FontSize="28" 
+                       FontWeight="Bold" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center"/>
+            </Border>
+
+            <!-- Основное содержимое -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Левая часть - Табы и таблица -->
+                <Grid Grid.Column="0">
+                    <!-- Табы для периодов -->
+                    <TabControl x:Name="periodTabControl" Margin="10,10,10,0">
+                        <TabItem Header="Сегодня">
+                            <ListView x:Name="todayListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <!-- Желтые заголовки колонок -->
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Вчера">
+                            <ListView x:Name="yesterdayListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Неделя">
+                            <ListView x:Name="weekListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Месяц">
+                            <ListView x:Name="monthListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Квартал">
+                            <ListView x:Name="quarterListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+
+                        <TabItem Header="Год">
+                            <ListView x:Name="yearListView">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Header="Фамилия и Инициал" Width="150" DisplayMemberBinding="{Binding User}"/>
+                                        <GridViewColumn Header="Вид работы" Width="100" DisplayMemberBinding="{Binding OperationType}"/>
+                                        <GridViewColumn Header="Формат" Width="80" DisplayMemberBinding="{Binding Format}"/>
+                                        <GridViewColumn Header="Сторона" Width="80" DisplayMemberBinding="{Binding Side}"/>
+                                        <GridViewColumn Header="Цвет" Width="80" DisplayMemberBinding="{Binding Color}"/>
+                                        <GridViewColumn Header="Кол-во" Width="80" DisplayMemberBinding="{Binding Count}"/>
+                                        <GridViewColumn Header="Сумма" Width="80" DisplayMemberBinding="{Binding Price}"/>
+                                        <GridViewColumn Header="Подпись" Width="100" DisplayMemberBinding="{Binding Signature}"/>
+                                    </GridView>
+                                </ListView.View>
+
+                                <ListView.Resources>
+                                    <Style TargetType="GridViewColumnHeader">
+                                        <Setter Property="Background" Value="#FFFFC500"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Height" Value="30"/>
+                                    </Style>
+                                </ListView.Resources>
+                            </ListView>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+
+                <!-- Правая часть - Кнопки вертикально -->
+                <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="1,0,0,0" 
+                        Background="#FFF5F5F5" Width="150">
+                    <StackPanel Orientation="Vertical" Margin="10">
+                        <Label Content="Действия:" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                        <Button x:Name="addButton" Content="Добавить операцию" 
+                                Height="35" Margin="0,5" Click="AddButton_Click"/>
+
+                        <Button x:Name="editButton" Content="Изменить" 
+                                Height="35" Margin="0,5" Click="EditButton_Click"/>
+
+                        <Button x:Name="deleteButton" Content="Удалить" 
+                                Height="35" Margin="0,5" Click="DeleteButton_Click"/>
+
+                        <Separator Margin="0,20,0,10"/>
+
+                        <Button x:Name="backButton" Content="Назад" 
+                                Height="35" Margin="0,5" Click="BackButton_Click"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Window>
