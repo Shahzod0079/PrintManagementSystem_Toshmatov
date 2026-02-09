@@ -5,62 +5,28 @@ namespace Print_Management_System.Classes
 
     public class TypeOperation
     {
-
-        public int Id { get; set; }
-
-
-        public string Name { get; set; }
-
  
-        public string Description { get; set; }
+        public int id { get; set; }
 
+        public string name { get; set; }
 
-        /// <param name="id">Идентификатор типа операции</param>
-        /// <param name="name">Наименование типа операции</param>
-        /// <param name="description">Описание типа операции</param>
-        public TypeOperation(int id, string name, string description)
+        public string description { get; set; }
+
+        public TypeOperation(int _id, string _name, string _description)
         {
-            Id = id;
-            Name = name;
-            Description = description;
-        }
-    }
-
-    public static class TypeOperationManager
-    {
-        /// <returns>Список типов операций</returns>
-        public static List<TypeOperation> GetAllTypeOperations()
-        {
-            return new List<TypeOperation>
-            {
-                new TypeOperation(1, "Печать", "Печать документа на принтере"),
-                new TypeOperation(2, "Копия", "Копирование документа на копировальном аппарате"),
-                new TypeOperation(3, "Сканирование", "Сканирование документа в цифровой формат"),
-                new TypeOperation(4, "Ризограф", "Тиражирование на ризографе")
-            };
+            this.id = _id;
+            this.name = _name;
+            this.description = _description;
         }
 
-        /// <param name="id">Идентификатор типа операции</param>
-        /// <returns>Найденный тип операции или null</returns>
-        public static TypeOperation GetTypeOperationById(int id)
+        public static List<TypeOperation> AllTypeOperation()
         {
-            var operations = GetAllTypeOperations();
-            return operations.Find(o => o.Id == id);
-        }
-
-        /// <param name="name">Наименование типа операции</param>
-        /// <returns>Найденный тип операции или null</returns>
-        public static TypeOperation GetTypeOperationByName(string name)
-        {
-            var operations = GetAllTypeOperations();
-            return operations.Find(o => o.Name == name);
-        }
-
-        /// <param name="id">Идентификатор типа операции</param>
-        /// <returns>true если тип операции существует</returns>
-        public static bool TypeOperationExists(int id)
-        {
-            return GetTypeOperationById(id) != null;
+            List<TypeOperation> allTypeOperation = new List<TypeOperation>();
+            allTypeOperation.Add(new TypeOperation(1, "Печать", "")); 
+            allTypeOperation.Add(new TypeOperation(2, "Копия", "")); 
+            allTypeOperation.Add(new TypeOperation(3, "Сканирование", "")); 
+            allTypeOperation.Add(new TypeOperation(4, "Ризограф", "")); 
+            return allTypeOperation;
         }
     }
 }
